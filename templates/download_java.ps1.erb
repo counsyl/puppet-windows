@@ -1,0 +1,3 @@
+$wc = New-Object Net.WebClient;
+$wc.Headers.Add([System.Net.HttpRequestHeader]::Cookie, "<%= @cookie %>");
+$wc.DownloadFile("<%= @jre_url %>", "<%= @jre_installer %>")
