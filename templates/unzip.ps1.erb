@@ -1,0 +1,3 @@
+$shell = New-Object -COMObject Shell.Application;
+$zipfile = $shell.NameSpace("<%= @zipfile %>");
+foreach($item in $zipfile.items()){ $shell.NameSpace("<%= @destination %>").CopyHere($item) };
