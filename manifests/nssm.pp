@@ -35,5 +35,6 @@ class windows::nssm(
   windows::unzip { $nssm_zip:
     destination => 'C:\Program Files',
     creates     => $root,
+    require     => Sys::Fetch['download-nssm'],
   }
 }
