@@ -1,5 +1,5 @@
 name    'counsyl-windows'
-version '0.6.0'
+version '0.6.1'
 source  'git://github.com/counsyl/puppet-windows.git'
 author  'Counsyl, Inc.'
 license 'Apache License, Version 2.0'
