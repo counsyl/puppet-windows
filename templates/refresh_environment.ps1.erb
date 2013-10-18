@@ -1,0 +1,21 @@
+# I remembered this trick from NSIS installers, and found a PowerShell
+# implementation from http://poshcode.org/2049.
+
+# Expose `SendMessageTimeout` from win32 API.
+if (-not ("win32.nativemethods" -as [type])) {
+    Add-Type -Namespace Win32 -Name NativeMethods -MemberDefinition @"
+[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+public static extern IntPtr SendMessageTimeout(
+    IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam,
+    uint fuFlags, uint uTimeout, out UIntPtr lpdwResult);
+"@
+};
+
+# Setting up variables.
+$HWND_BROADCAST = [intptr]0xffff;
+$WM_SETTINGCHANGE = 0x1a;
+$result = [uintptr]::Zero;
+
+# Notify all windows of environment block change, if this doesn't return 1,
+# exit with an error code.
+if ( ([win32.nativemethods]::SendMessageTimeout($HWND_BROADCAST, $WM_SETTINGCHANGE, [uintptr]::Zero, "Environment", 2, 5000, [ref]$result)) -ne 1 ){ exit 1 };
