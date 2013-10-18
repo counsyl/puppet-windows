@@ -1,0 +1,26 @@
+<% args = [@netsh, 'advfirewall', 'firewall', 'add', 'rule', "name=\"#{@name}\"", "dir=#{@dir}", "action=#{@action}"] -%>
+<% if @description -%>
+<% args << "description=\"#{@description}\"" -%>
+<% end -%>
+<% if @program -%>
+<% args << "program=\"#{@program}\"" -%>
+<% end -%>
+<% if @localport -%>
+<% args << "localport=#{@localport}" -%>
+<% end -%>
+<% if @remoteport -%>
+<% args << "remoteport=#{@remoteport}" -%>
+<% end -%>
+<% if @protocol -%>
+<% args << "protocol=#{@protocol}" -%>
+<% end -%>
+<% if @remoteip -%>
+<% args << "remoteip=#{@remoteip}" -%>
+<% end -%>
+<% if @profile -%>
+<% args << "profile=#{@profile}" -%>
+<% end -%>
+<% if @enable -%>
+<% args << "enable=#{@enable}" -%>
+<% end -%>
+<%= args.join(' ') %>
