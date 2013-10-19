@@ -4,6 +4,9 @@
 #
 # == Parameters
 #
+# For more information on the parameters, please consult:
+#  http://support.microsoft.com/kb/947709
+#
 # [*ensure*]
 #  Defaults to 'present', set to 'absent' to ensure the firewall rule is
 #  deleted.
@@ -12,6 +15,9 @@
 #  Path to the program to allow through the firewall; either this or the
 #  `localport` parameter is required.
 #
+# [*protocol*]
+#  The network protocol to use, e.g., 'tcp', 'udp', 'icmpv4'.
+#
 # [*localport*]
 #  The localport to open up through the firewall, if provided the `protocol`
 #  parameter must also be specified.
@@ -19,6 +25,7 @@
 define windows::firewall_rule(
   $ensure      = 'present',
   $program     = undef,
+  $protocol    = undef,
   $localport   = undef,
   $description = undef,
   $remoteport  = undef,
@@ -26,13 +33,12 @@ define windows::firewall_rule(
   $dir         = 'in',
   $action      = 'allow',
   $enable      = 'yes',
-  $protocol    = undef,
   $profile     = undef,
 ) {
 
   # Make sure there's at least a program or a localport specified.
-  if (! $program and ! $localport) {
-    fail("Must provide either a program or localport for the Windows firewall rule.\n")
+  if (! $program and ! $localport and ! $protocol) {
+    fail("Must provide either a program, localport, or protocol for the Windows firewall rule.\n")
   }
 
   if ( $localport and ! $protocol) {
