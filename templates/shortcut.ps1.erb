@@ -1,0 +1,13 @@
+$shell = New-Object -COMObject WScript.Shell;
+$shortcut = $shell.CreateShortcut("<%= @path %>");
+$shortcut.TargetPath = "<%= @target %>";
+<% if @arguments -%>
+$shortcut.Arguments = "<%= @arguments %>";
+<% end -%>
+<% if @description -%>
+$shortcut.Description = "<%= @description %>";
+<% end -%>
+<% if @working_directory -%>
+$shortcut.WorkingDirectory = "<%= @working_directory %>";
+<% end -%>
+$shortcut.Save();
