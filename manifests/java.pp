@@ -33,7 +33,7 @@ class windows::java(
   # Determining Java's path depending on the version.
   case $version {
     '6': {
-      $path = "C:\\Program Files\\Java\jre1.6.0_${update}\\bin"
+      $path = "C:\\Program Files\\Java\\jre1.6.0_${update}\\bin"
     }
     '7': {
       $path = 'C:\Program Files\Java\jre7\bin'
