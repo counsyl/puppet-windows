@@ -25,15 +25,25 @@ class windows::nssm(
   $nssm_url = "${base_url}${basename}"
   $nssm_zip = "${windows::installers}\\${basename}"
 
+  # The root location of NSSM.
+  $root = "${destination}\\nssm-${version}"
+
+  # Setting the path depending on the system architecture.
+  if $::architecture == 'x64' {
+    $path = "${root}\\win64"
+  } else {
+    $path = "${root}\\win32"
+  }
+
+  # Download the NSSM zip archive.
   sys::fetch { 'download-nssm':
     source      => $nssm_url,
     destination => $nssm_zip,
   }
 
-  # The root location of NSSM.
-  $root = "${destination}\\nssm-${version}"
+  # Unzip the NSSM archive into the destination, creating the root folder.
   windows::unzip { $nssm_zip:
-    destination => 'C:\Program Files',
+    destination => $destination,
     creates     => $root,
     require     => Sys::Fetch['download-nssm'],
   }
