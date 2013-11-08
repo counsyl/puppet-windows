@@ -1,0 +1,7 @@
+<% if @clsid.is_a? Array -%>
+<% clsids = @clsid.map { |id| "\"#{id}\"" } -%>
+$clsids = @{<%= clsids.join(',') %>};
+<% else -%>
+$clsids = @{"<%= @clsid %>"};
+<% end -%>
+foreach($clsid in $clsids){ if (! (Test-Path "<%= @hkcr %>\${clsid}") ) { exit 1 } };

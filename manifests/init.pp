@@ -14,7 +14,9 @@ class windows(
   # Location of commonly-used programs from system32.
   $certutil = "${system32}\\certutil.exe"
   $cmd = "${system32}\\cmd.exe"
+  $regsvr32 = "${system32}\\regsvr32.exe"
 
+  # Ensure directory to store installers exists.
   file { $installers:
     ensure => directory,
   }
