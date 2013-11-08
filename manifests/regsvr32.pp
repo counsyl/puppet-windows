@@ -36,11 +36,11 @@ define windows::regsvr32(
 
   case $ensure {
     'present': {
-      $command = "${windows::regsvr32} ${dll}"
+      $command = "${windows::regsvr32} \"${dll}\""
       $unless  = template('windows/regsvr32.ps1.erb')
     }
     'absent': {
-      $command = "${windows::regsvr32} /u ${dll}"
+      $command = "${windows::regsvr32} /u \"${dll}\""
       $onlyif  = template('windows/regsvr32.ps1.erb')
     }
     default: {
