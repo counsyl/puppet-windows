@@ -18,7 +18,7 @@
 #  (WoW64) registry node.  Defaults to true on 64-bit systems, set to false
 #  if the class GUID(s) are native 64-bit.
 #
-define regsvr32(
+define windows::regsvr32(
   $clsid,
   $ensure = 'present',
   $dll    = $name,
