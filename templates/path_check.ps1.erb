@@ -1,0 +1,6 @@
+$curpath = [Environment]::GetEnvironmentVariable("PATH", "<%= @target %>");
+<% if @ensure == 'present' -%>
+if (! $curpath.Contains("<%= @path %>")){ exit 1 };
+<% else -%>
+if ($curpath.Contains("<%= @path %>")){ exit 1 };
+<% end -%>
