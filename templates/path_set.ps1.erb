@@ -5,5 +5,5 @@ $newpath = "${curpath};<%= @directory %>";
 $newpath = @();
 foreach($path in $curpath.Split(';')){ if ($path -ne "<%= @directory %>"){ $newpath = $newpath + $path } };
 $newpath = [String]::Join(';', $newpath)
-<% endif -%>
+<% end -%>
 [Environment]::SetEnvironmentVariable("PATH", $newpath, "<%= @target %>");
