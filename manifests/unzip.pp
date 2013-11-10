@@ -4,21 +4,20 @@
 #
 # === Parameters
 #
-# [*name*]
-#  The path to the ZIP file to extract.
-#
 # [*destination*]
 #  Required, the destination directory to extract the files into.
 #
 # [*creates*]
-#  A file that should exist after the ZIP file is extracted.
+#  Required, a file that should exist after the ZIP file is extracted.
+#
+# [*zipfile*]
+#  The path to the ZIP file to extract, defaults the $name of the resource.
 #
 define windows::unzip(
   $destination,
   $creates,
+  $zipfile = $name,
 ) {
-  # Setting $zipfile parameter
-  $zipfile = $name
   exec { "unzip-${name}":
     command  => template('windows/unzip.ps1.erb'),
     creates  => $creates,
