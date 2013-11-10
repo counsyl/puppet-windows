@@ -1,25 +1,27 @@
 # == Define: windows::environment
 #
-# Creates a Windows environment variable.
+# Set Windows environment variable to the given value.
 #
 # === Parameters
 #
 # [*value*]
-#  The value that the environment variable should be.
+#  The value that the environment variable should be, required by default
+#  (when ensure = 'present').
 #
 # [*ensure*]
 #  The ensure value for the resource, must be 'present' or 'absent'.
-#  Defaults to 'present'.
+#  Defaults to 'present'.  When set to 'absent', the environment variable
+#  is removed.
 #
 # [*variable*]
-#  The environment variable to set, defaults to the name.
+#  The environment variable to set, defaults to the name of the resource.
 #
 # [*target*]
 #  The location where an environment variable is stored, must be either
-#  'Machine', 'Process', or 'User'.  Defaults to 'Machine'.
+#  'Machine' (the default), 'Process', or 'User'.
 #
 define windows::environment(
-  $value,
+  $value    = undef,
   $ensure   = 'present',
   $variable = $name,
   $target   = 'Machine',
@@ -30,6 +32,9 @@ define windows::environment(
 
   case $ensure {
     'present': {
+      if (! $value) {
+        fail("Must provide a value for ${variable}.\n")
+      }
       $command = "[Environment]::SetEnvironmentVariable('${variable}', '${value}', '${target}')"
       $unless = "if ([Environment]::GetEnvironmentVariable('${variable}', '${target}') -ne '${value}'){ exit 1 }"
     }
