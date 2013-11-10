@@ -42,10 +42,14 @@ define windows::env(
     }
   }
 
+  # Execute the command that sets or unsets the environment variable, and
+  # refresh the environment.
+  include windows::refresh_environment
   exec { "env-${name}-${target}":
-    command  => command,
+    command  => $command,
     unless   => $unless,
     onlyif   => $onlyif,
     provider => 'powershell',
+    notify   => Class['windows::refresh_environment'],
   }
 }
