@@ -1,4 +1,4 @@
-# == Define: windows::env
+# == Define: windows::environment
 #
 # Creates a Windows environment variable.
 #
@@ -18,7 +18,7 @@
 #  The location where an environment variable is stored, must be either
 #  'Machine', 'Process', or 'User'.  Defaults to 'Machine'.
 #
-define windows::env(
+define windows::environment(
   $value,
   $ensure   = 'present',
   $variable = $name,
@@ -38,7 +38,7 @@ define windows::env(
       $onlyif = "if ([Environment]::GetEnvironmentVariable('${variable}', '${target}') -ne \$null){ exit 1 }"
     }
     default: {
-      fail("Invalid windows::env ensure value.\n")
+      fail("Invalid windows::environment ensure value.\n")
     }
   }
 
