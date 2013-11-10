@@ -20,9 +20,9 @@
 #
 define windows::env(
   $value,
-  $ensure  = 'present',
-  $varable = $name,
-  $target  = 'Machine',
+  $ensure   = 'present',
+  $variable = $name,
+  $target   = 'Machine',
 ) {
 
   # Ensure only valid target parameter.
