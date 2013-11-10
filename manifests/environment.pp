@@ -33,14 +33,14 @@ define windows::environment(
   case $ensure {
     'present': {
       if (! $value) {
-        fail("Must provide a value for ${variable}.\n")
+        fail("Must provide a value to set ${variable} with.\n")
       }
       $command = "[Environment]::SetEnvironmentVariable('${variable}', '${value}', '${target}')"
       $unless = "if ([Environment]::GetEnvironmentVariable('${variable}', '${target}') -ne '${value}'){ exit 1 }"
     }
     'absent': {
       $command = "[Environment]::SetEnvironmentVariable('${variable}', \$null, '${target}')"
-      $onlyif = "if ([Environment]::GetEnvironmentVariable('${variable}', '${target}') -ne \$null){ exit 1 }"
+      $unless = "if ([Environment]::GetEnvironmentVariable('${variable}', '${target}') -ne \$null){ exit 1 }"
     }
     default: {
       fail("Invalid windows::environment ensure value.\n")
@@ -53,7 +53,6 @@ define windows::environment(
   exec { "env-${name}-${target}":
     command  => $command,
     unless   => $unless,
-    onlyif   => $onlyif,
     provider => 'powershell',
     notify   => Class['windows::refresh_environment'],
   }
