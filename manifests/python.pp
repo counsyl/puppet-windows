@@ -41,7 +41,7 @@ class windows::python(
     $python_source = "${windows::installers}\\${basename}"
 
     sys::fetch { 'download-python':
-      destination => $python_source
+      destination => $python_source,
       source      => $source_uri,
       before      => Package[$package],
     }
