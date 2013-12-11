@@ -60,7 +60,7 @@ class windows::python(
     $path = $targetdir
   } else {
     $path = inline_template(
-      "<%= \"C:\Python#{@version.split('.').join('')[0..1]}\" %>"
+      "<%= \"C:\\Python#{@version.split('.').join('')[0..1]}\" %>"
     )
   }
 
