@@ -86,6 +86,9 @@ class windows::python(
     )
   }
 
+  # Python scripts path.
+  $scripts = "${path}\\Scripts"
+
   # Where site-packages lives.
   $site_packages = "${path}\\Lib\\site-packages"
 
@@ -102,6 +105,11 @@ class windows::python(
   if $win_path {
     windows::path { 'python-path':
       directory => $path,
+      require   => Package[$package],
+    }
+
+    windows::path { 'python-scripts':
+      directory => $scripts,
       require   => Package[$package],
     }
   }
