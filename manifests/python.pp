@@ -4,7 +4,29 @@
 #
 # === Parameters
 #
-# TODO
+# [*version*]
+#  The version of Python to install, defaults to '2.7.6'.
+#
+# [*arch*]
+#  The architecture of Python to install, defaults to the architecture of
+#  the system (e.g., 'x64' on 64-bit system).
+#
+# [*allusers*]
+#  Whether to install Python for all users, defaults to true.
+#
+# [*base_url*]
+#  The base url to use when downloading Python, undefined by default.
+#
+# [*source*]
+#  The HTTP or UNC source to the Python package, undefined by default.
+#
+# [*targetdir*]
+#  The target installation directory to use for the Python package,
+#  undefined by default.
+#
+# [*win_dir*]
+#  Whether or not to add Python directory to the Windows system %Path%,
+#  defaults to true.
 #
 class windows::python(
   $version   = '2.7.6',
