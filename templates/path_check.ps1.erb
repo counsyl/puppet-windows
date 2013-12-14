@@ -1,6 +1,8 @@
-$curpath = [Environment]::GetEnvironmentVariable("PATH", "<%= @target %>");
+$curpath = ([Environment]::GetEnvironmentVariable("PATH", "<%= @target %>")).Split(';');
 <% if @ensure == 'present' -%>
-if (! $curpath.Contains("<%= @directory %>")){ exit 1 };
+foreach($component in $curpath) { if ($component -eq "<%= @directory %>"){ exit 0 } };
+exit 1;
 <% else -%>
-if ($curpath.Contains("<%= @directory %>")){ exit 1 };
+foreach($component in $curpath) { if ($component -eq "<%= @directory %>"){ exit 1 } };
+exit 0;
 <% end -%>
