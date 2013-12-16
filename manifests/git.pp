@@ -36,9 +36,9 @@ class windows::git(
   }
 
   # Install the Git package.
-  #package { $package:
-  #  ensure          => installed,
-  #  source          => $git_source,
-  #  install_options => [],
-  #}
+  package { $package:
+    ensure          => installed,
+    source          => $git_source,
+    install_options => ['/VERYSILENT'],
+  }
 }
