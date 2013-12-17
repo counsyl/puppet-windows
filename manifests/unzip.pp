@@ -20,15 +20,22 @@
 #  default is undefined.
 #
 # [*zipfile*]
-#  The path to the ZIP file to extract, defaults the $name of the resource.
-#
-# [*command_template*]
-#  Advanced paramter for generating PowerShell that extracts the ZIP file,
-#  defaults to 'windows/unzip.ps1.erb'.
+#  The path to the ZIP file to extract, defaults the name of the resource.
 #
 # [*provider*]
 #  Advanced parameter, sets the provider for the exec resource that extracts
 #  the ZIP file, defaults to 'powershell'.
+#
+# [*options*]
+#  Advanced parameter, sets the extraction options for the `Folder.CopyHere`
+#  method: http://msdn.microsoft.com/en-us/library/windows/desktop/bb787866.
+#  Defaults to 20, which is sum of:
+#   * 4:  Do not display a progress dialog box.
+#   * 16: Respond with "Yes to All" for any dialog box that is displayed.
+#
+# [*command_template*]
+#  Advanced paramter for generating PowerShell that extracts the ZIP file,
+#  defaults to 'windows/unzip.ps1.erb'.
 #
 define windows::unzip(
   $destination,
@@ -36,8 +43,9 @@ define windows::unzip(
   $refreshonly      = false,
   $unless           = undef,
   $zipfile          = $name,
-  $command_template = 'windows/unzip.ps1.erb',
   $provider         = 'powershell',
+  $options          = '20',
+  $command_template = 'windows/unzip.ps1.erb',
 ) {
   if (! $creates and ! $refreshonly and ! $unless){
     fail("Must set one of creates, refreshonly, or unless parameters.\n")
