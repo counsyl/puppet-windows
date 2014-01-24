@@ -4,10 +4,10 @@
 #
 class windows::git(
   $base_url = 'http://msysgit.googlecode.com/files/',
+  $path     = 'C:\Program Files (x86)\Git\cmd',
   $source   = undef,
-  $version  = '1.8.4-preview20130916',
+  $version  = '1.8.5.2-preview20131230',
 ) {
-
   # Basename of the installer.
   $basename = "Git-${version}.exe"
 
@@ -40,5 +40,13 @@ class windows::git(
     ensure          => installed,
     source          => $git_source,
     install_options => ['/VERYSILENT'],
+  }
+
+  # If `$path` is set, ensure that Git is a component of the %PATH%.
+  if $path {
+    windows::path { 'git-path':
+      directory => $path,
+      require   => Package[$package],
+    }
   }
 }
