@@ -6,6 +6,7 @@ class windows::autologon(
   $ensure   = 'enabled',
   $username = undef,
   $password = undef,
+  $domain   = undef,
   $force    = false,
   $key      = 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon',
 ) {
@@ -17,37 +18,44 @@ class windows::autologon(
 
       registry_value { "${key}\\AutoAdminLogon":
         ensure => present,
-        value  => '1',
+        data   => '1',
       }
 
       registry_value { "${key}\\DefaultUsername":
         ensure => present,
-        value  => $username,
+        data   => $username,
       }
 
       if $password {
         registry_value { "${key}\\DefaultPassword":
           ensure => present,
-          value  => $password,
+          data   => $password,
+        }
+      }
+
+      if $domain {
+        registry_value { "${key}\\DefaultDomainName":
+          ensure => present,
+          data   => $domain,
         }
       }
 
       if $force {
         registry_value { "${key}\\ForceAutoLogon":
           ensure => present,
-          value  => '1',
+          data   => '1',
         }
       }
     }
     'disabled', 'absent': {
       registry_value { "${key}\\AutoAdminLogon":
         ensure => present,
-        value  => '0',
+        data   => '0',
       }
 
       registry_value {
         ["${key}\\DefaultUsername", "${key}\\DefaultPassword",
-         "${key}\\ForceAutoLogon"]:
+         "${key}\\DefaultDomainName", "${key}\\ForceAutoLogon"]:
            ensure => absent,
       }
     }
