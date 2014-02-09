@@ -2,6 +2,27 @@
 #
 # Enable automatic logon on Windows machine.
 #
+# === Parameters
+#
+# [*ensure*]
+#  Ensure value, defaults to 'enabled'.  Set to 'absent' or 'disabled' to
+#  disable automatic logon.
+#
+# [*username*]
+#  Username to enable automatic logon for, required when `ensure` is 'enabled'.
+#
+# [*password*]
+#  Password to use for automatic logon, required if there's a password set
+#  for the username.
+#
+# [*force*]
+#  Sets the `ForceAutoLogon` key if set, defaults to false.
+#
+# [*key*]
+#  Advanced parameter, should not need to change.  The base windows registry
+#  key for automatic logon settings, defaults to:
+#  'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon'
+#
 class windows::autologon(
   $ensure   = 'enabled',
   $username = undef,
