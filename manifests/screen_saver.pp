@@ -14,7 +14,7 @@ define windows::screen_saver(
   validate_string($user)
   validate_absolute_path($exe)
   validate_bool($secure)
-  validate_int($timeout)
+  validate_re($timeout, '^\d+$')
 
   if $ensure in ['present', 'enabled'] {
     $active_value = 1
