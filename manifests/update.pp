@@ -65,12 +65,24 @@ class windows::update(
   $server               = undef,
   $status_server        = undef,
   $key                  = 'HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate',
+  $service              = 'wuauserv',
 ) {
   validate_re($ensure, '^(enabled|present|disabled|absent)$')
   validate_re($options, '^[2-5]$')
   validate_re($day, '^[0-7]$')
   validate_re($time, '^[0-23]$')
   validate_bool($reboot_required)
+
+  # Windows update service.
+  service { $service:
+    ensure => 'running',
+    enable => true,
+  }
+
+  # Have any `registry_value` resources here refresh Windows Update service.
+  Registry_value {
+    notify => Service[$service],
+  }
 
   # AutoUpdate settings registry key, ensure it and it's parent
   # are present.
@@ -83,7 +95,7 @@ class windows::update(
   if is_string($server) {
     validate_re($server, '^http(s)?')
 
-    registry_key { "${key}\\WUServer":
+    registry_value { "${key}\\WUServer":
       ensure => present,
       type   => 'string',
       data   => $server,
@@ -96,21 +108,21 @@ class windows::update(
       $status_server_data = $server
     }
 
-    registry_key { "${key}\\WUStatusServer":
+    registry_value { "${key}\\WUStatusServer":
       ensure => present,
       type   => 'string',
       data   => $status_server_data,
     }
 
-    registry_key { "${au_key}\\UseWUSServer":
+    registry_value { "${au_key}\\UseWUSServer":
       ensure  => present,
       type    => 'string',
       data    => 1,
     }
   } else {
-    registry_key { ["${key}\\WUServer",
-                    "${key}\\WUStatusServer",
-                    "${au_key}\\UseWUServer"]:
+    registry_value { ["${key}\\WUServer",
+                      "${key}\\WUStatusServer",
+                      "${au_key}\\UseWUServer"]:
       ensure => absent,
     }
   }
