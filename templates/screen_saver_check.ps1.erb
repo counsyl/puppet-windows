@@ -12,5 +12,5 @@ foreach($property in "ScreenSaveActive","SCRNSAVE.EXE","ScreenSaverIsSecure","Sc
 if ( (Get-ItemProperty -Path $regpath -Name "ScreenSaveActive").ScreenSaveActive -ne <%= @active_value %>) { exit 1; }
 if ( (Get-ItemProperty -Path $regpath -Name "SCRNSAVE.EXE")."SCRNSAVE.EXE" -ne "<%= @exe %>") { exit 1; }
 if ( (Get-ItemProperty -Path $regpath -Name "ScreenSaverIsSecure").ScreenSaverIsSecure -ne <%= @secure_value %>) { exit 1; }
-if ( (Get-ItemProperty -Path $regpath -Name "ScreenSaveTimeout").ScreenSaveTimeout -ne <%= @timeout %>) { exit 1; }
+if ( (Get-ItemProperty -Path $regpath -Name "ScreenSaveTimeout").ScreenSaveTimeout -ne <%= @timeout_seconds %>) { exit 1; }
 exit 0;

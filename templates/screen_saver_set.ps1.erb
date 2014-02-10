@@ -8,4 +8,4 @@ $regpath = "Registry::HKEY_USERS\${sid}\Control Panel\Desktop";
 Set-ItemProperty -Path $regpath -Name "ScreenSaveActive" -Value <%= @active_value %> -Force;
 Set-ItemProperty -Path $regpath -Name "SCRNSAVE.EXE" -Value "<%= @exe %>" -Force;
 Set-ItemProperty -Path $regpath -Name "ScreenSaverIsSecure" -Value <%= @secure_value %> -Force;
-Set-ItemProperty -Path $regpath -Name "ScreenSaveTimeOut" -Value <%= @timeout %> -Force;
+Set-ItemProperty -Path $regpath -Name "ScreenSaveTimeOut" -Value <%= @timeout_seconds %> -Force;
