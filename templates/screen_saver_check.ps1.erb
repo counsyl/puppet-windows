@@ -1,0 +1,24 @@
+<% if @domain -%>
+$user = New-Object System.Security.Principal.NTAccount("<%= @domain %>", "<%= @user %>");
+<% else -%>
+$user = New-Object System.Security.Principal.NTAccount("<%= @user %>");
+<% end -%>
+$sid = ($user.Translate([System.Security.Principal.SecurityIdentifier])).Value;
+$regpath = "Registry::HKEY_USERS\${sid}\Control Panel\Desktop";
+$regkey = Get-Item -Path $regpath;
+if ( $regkey.Property -contains "SCRNSAVE.EXE" ) {
+    if ( (Get-ItemProperty -Path $regpath -Name "SCRNSAVE.EXE")."SCREENSAVE.EXE" -ne "<%= @exe %>") {
+        exit 1; 
+    }
+} else { 
+    exit 1;
+}
+Add-Type -Namesapce Win32 -Name NativeMethods -MemberDefinition @"
+[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+public static extern bool SystemParametersInfo(int uAction, int uParam, ref int lpvParam, int flags);
+"@;
+[int]$timeout = 0;
+[win32.nativemethods]::SystemParametersInfo(14, 0, [ref]$timeout, 0);
+[boolean]$secure;
+[win32.nativemethods]::SystemParametersInfo(76, 0, [ref]$secure, 0);
+if ($timeout -ne <%= @timeout %> -or $secure -ne <% if @secure -%>$true<% else -%>$false<% end -%>) { exit 1; } else { exit 0; }
