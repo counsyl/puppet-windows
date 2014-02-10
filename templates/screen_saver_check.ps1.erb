@@ -6,19 +6,10 @@ $user = New-Object System.Security.Principal.NTAccount("<%= @user %>");
 $sid = ($user.Translate([System.Security.Principal.SecurityIdentifier])).Value;
 $regpath = "Registry::HKEY_USERS\${sid}\Control Panel\Desktop";
 $regkey = Get-Item -Path $regpath;
-if ( $regkey.Property -contains "SCRNSAVE.EXE" ) {
-    if ( (Get-ItemProperty -Path $regpath -Name "SCRNSAVE.EXE")."SCREENSAVE.EXE" -ne "<%= @exe %>") {
-        exit 1; 
-    }
-} else { 
-    exit 1;
+foreach($property in "ScreenSaveActive","SCRNSAVE.EXE","ScreenSaverIsSecure","ScreenSaveTimeOut") {
+    if ( ! ($regkey.Property -contains $property)) { exit 1; }
 }
-Add-Type -Namesapce Win32 -Name NativeMethods -MemberDefinition @"
-[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-public static extern bool SystemParametersInfo(int uAction, int uParam, ref int lpvParam, int flags);
-"@;
-[int]$timeout = 0;
-[win32.nativemethods]::SystemParametersInfo(14, 0, [ref]$timeout, 0);
-[boolean]$secure;
-[win32.nativemethods]::SystemParametersInfo(76, 0, [ref]$secure, 0);
-if ($timeout -ne <%= @timeout %> -or $secure -ne <% if @secure -%>$true<% else -%>$false<% end -%>) { exit 1; } else { exit 0; }
+if ( (Get-ItemProperty -Path $regpath -Name "ScreenSaveActive").ScreenSaveActive -ne <%= @active_value %>) { exit 1; }
+if ( (Get-ItemProperty -Path $regpath -Name "SCRNSAVE.EXE")."SCREENSAVE.EXE" -ne "<%= @exe %>") { exit 1; }
+if ( (Get-ItemProperty -Path $regpath -Name "ScreenSaverIsSecure").ScreenSaverIsSecure -ne <%= @secure_value %>) { exit 1; }
+if ( (Get-ItemProperty -Path $regpath -Name "ScreenSaveTimeout").ScreenSaveTimeout -ne <%= @timeout %>) { exit 1; }
