@@ -65,7 +65,7 @@
 #
 class windows::update(
   $ensure               = 'enabled',
-  $options              = '2',
+  $type                 = '2',
   $all_users            = false,
   $detection_frequency  = undef,
   $day                  = '0',
