@@ -14,7 +14,7 @@
 #  Whether all users (instead of just Administrators) are allowed to install
 #  and approve/disapprove updates.  Defaults to false.
 #
-# [*options*]
+# [*type*]
 #  How windows updates are installed, defaults to '2':
 #
 #   2 => Notify before download or installation.
@@ -82,7 +82,7 @@ class windows::update(
 ) {
   validate_re($ensure, '^(enabled|present|disabled|absent)$')
   validate_bool($all_users)
-  validate_re($options, '^[2-5]$')
+  validate_re($type, '^[2-5]$')
   validate_re($day, '^[0-7]$')
   validate_re($time, '^[0-23]$')
   validate_bool($reboot_required)
@@ -156,7 +156,7 @@ class windows::update(
   # Whether Windows Update is enabled.
   if $ensure in ['enabled', 'present'] {
     $noautoupdate = 0
-    $auoptions = $options
+    $auoptions = $type
   } else {
     $noautoupdate = 1
     $auoptions = 1
@@ -187,7 +187,7 @@ class windows::update(
     data   => $includerecommendedupates,
   }
 
-  if $options == '4' {
+  if $auoptions == '4' {
     registry_value { "${au_key}\\ScheduledInstallDay":
       ensure => present,
       type   => 'dword',
