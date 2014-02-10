@@ -10,6 +10,10 @@
 #  Defaults to 'enabled', if set to 'disabled' or 'absent' automatic
 #  windows updates are disabled.
 #
+# [*all_users*]
+#  Whether all users (instead of just Administrators) are allowed to install
+#  and approve/disapprove updates.  Defaults to false.
+#
 # [*options*]
 #  How windows updates are installed, defaults to '2':
 #
@@ -55,6 +59,7 @@
 class windows::update(
   $ensure               = 'enabled',
   $options              = '2',
+  $all_users            = false,
   $detection_frequency  = undef,
   $day                  = '0',
   $time                 = '3',
@@ -68,6 +73,7 @@ class windows::update(
   $service              = 'wuauserv',
 ) {
   validate_re($ensure, '^(enabled|present|disabled|absent)$')
+  validate_bool($all_users)
   validate_re($options, '^[2-5]$')
   validate_re($day, '^[0-7]$')
   validate_re($time, '^[0-23]$')
@@ -89,6 +95,18 @@ class windows::update(
   $au_key = "${key}\\AU"
   registry_key { [$key, $au_key]:
     ensure => present,
+  }
+
+  # Allow all users to install updates?
+  if $all_users {
+    $elevatenonadmins = 1
+  } else {
+    $elevatenonadmins = 0
+  }
+  registry_value { "${key}\\ElevateNonAdmins":
+    ensure => present,
+    type   => 'dword',
+    data   => $elevatenonadmins,
   }
 
   # Do we want to set a custom WSUS server?
