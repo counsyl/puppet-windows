@@ -92,7 +92,7 @@ class windows::update(
   }
 
   # Do we want to set a custom WSUS server?
-  if is_string($server) {
+  if $server {
     validate_re($server, '^http(s)?')
 
     registry_value { "${key}\\WUServer":
@@ -101,7 +101,7 @@ class windows::update(
       data   => $server,
     }
 
-    if is_string($status_server) {
+    if $status_server {
       validate_re($status_server, '^http(s)?')
       $status_server_data = $status_server
     } else {
@@ -182,7 +182,7 @@ class windows::update(
   }
 
   # Detection frequency.
-  if is_string($detection_frequency) {
+  if $detection_frequency {
     registry_value { "${au_key}\\DetectionFrequencyEnabled":
       ensure => present,
       type   => 'dword',
@@ -207,7 +207,7 @@ class windows::update(
   }
 
   # Reboot relaunch timeout.
-  if is_string($reboot_relaunch_time) {
+  if $reboot_relaunch_time {
     registry_value { "${au_key}\\RebootRelaunchTimeoutEnabled":
       ensure => present,
       type   => 'dword',
@@ -232,7 +232,7 @@ class windows::update(
   }
 
   # Reboot warning timeout.
-  if is_string($reboot_warning_time) {
+  if $reboot_warning_time {
     registry_value { "${au_key}\\RebootWarningTimeoutEnabled":
       ensure => present,
       type   => 'dword',
@@ -257,7 +257,7 @@ class windows::update(
   }
 
   # Reschedule wait time.
-  if is_string($reschedule_wait_time) {
+  if $reschedule_wait_time {
     registry_value { "${au_key}\\RescheduleWaitTimeEnabled":
       ensure => present,
       type   => 'dword',
