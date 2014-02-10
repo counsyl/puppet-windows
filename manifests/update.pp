@@ -41,6 +41,10 @@
 #  Length, in minutes, of the restart warning countdown after installing
 #  updates with a deadline or scheduled updates.  Default is undefined.
 #
+# [*recommended_updates*]
+#  Give recommended updates the same way as important updates, defaults
+#  to false.
+#
 # [*reschedule_wait_time*]
 #  Time, in minutes, that Automatic Updates should wait at startup before
 #  applying updates from a missed scheduled installation time.  Default
@@ -53,8 +57,11 @@
 #  WSUS Status server to use, defaults to value of `server` parameter.
 #
 # [*key*]
-#  Registry key for WindowsUpdate settings, defaults to:
+#  Advanced use only; registry key for WindowsUpdate settings, defaults to:
 #  'HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate'
+#
+# [*service*]
+#  Advanced use only; Windows update service, defaults to 'wuauserv'.
 #
 class windows::update(
   $ensure               = 'enabled',
@@ -66,6 +73,7 @@ class windows::update(
   $reboot_required      = true,
   $reboot_relaunch_time = undef,
   $reboot_warning_time  = undef,
+  $recommended_updates  = false,
   $reschedule_wait_time = undef,
   $server               = undef,
   $status_server        = undef,
@@ -164,6 +172,19 @@ class windows::update(
     ensure => present,
     type   => 'dword',
     data   => $auoptions,
+  }
+
+  # Install recommended updates same way as important updates?
+  if $recommended_updates {
+    $includerecommendedupates = 1
+  } else {
+    $includerecommendedupates = 0
+  }
+
+  registry_value { "${au_key}\\IncludeRecommendedUpdates":
+    ensure => present,
+    type   => 'dword',
+    data   => $includerecommendedupates,
   }
 
   if $options == '4' {
