@@ -129,10 +129,10 @@ class windows::update(
 
   # Whether Windows Update is enabled.
   if $ensure in ['enabled', 'present'] {
-    $noautoupdate = 1
+    $noautoupdate = 0
     $auoptions = $options
   } else {
-    $noautoupdate = 0
+    $noautoupdate = 1
     $auoptions = 1
   }
 
