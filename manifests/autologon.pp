@@ -8,8 +8,8 @@
 #  Ensure value, defaults to 'enabled'.  Set to 'absent' or 'disabled' to
 #  disable automatic logon.
 #
-# [*username*]
-#  Username to enable automatic logon for, required when `ensure` is 'enabled'.
+# [*user*]
+#  Username to enable automatic logon for required when `ensure => 'enabled'`.
 #
 # [*password*]
 #  Password to use for automatic logon, required if there's a password set
@@ -25,7 +25,7 @@
 #
 class windows::autologon(
   $ensure   = 'enabled',
-  $username = undef,
+  $user     = undef,
   $password = undef,
   $domain   = undef,
   $force    = false,
@@ -33,8 +33,8 @@ class windows::autologon(
 ) {
   case $ensure {
     'enabled', 'present': {
-      if ! $username {
-        fail("Must provide a username parameter for windows::autologon.\n")
+      if ! $user {
+        fail("Must provide a user parameter for windows::autologon.\n")
       }
 
       registry_value { "${key}\\AutoAdminLogon":
@@ -44,7 +44,7 @@ class windows::autologon(
 
       registry_value { "${key}\\DefaultUsername":
         ensure => present,
-        data   => $username,
+        data   => $user,
       }
 
       if $password {
