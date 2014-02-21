@@ -1,6 +1,6 @@
 # == Class: windows::autologon
 #
-# Enable automatic logon on Windows machine.
+# Enable automatic logon to the Windows PC.
 #
 # === Parameters
 #

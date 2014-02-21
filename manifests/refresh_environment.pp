@@ -1,8 +1,7 @@
-# == Class: windows::refresh_env
+# == Class: windows::refresh_environment
 #
-# Refresh the Windows Environment.  Makes it possible to have updated
-# Windows environment varialbes (e.g., the %Path%) without restarting
-# or logging off and back on.
+# Refresh the Windows Environment.  Makes it possible to have updated Windows
+# environment variables (e.g., the %Path%) without logging off or restarting.
 #
 class windows::refresh_environment(
   $command_template = 'windows/refresh_environment.ps1.erb',

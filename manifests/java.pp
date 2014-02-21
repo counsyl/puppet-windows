@@ -1,6 +1,6 @@
 # == Class: windows::java
 #
-# Downloads and installs Java Runtime Environment.
+# Downloads and installs the Java Runtime Environment.
 #
 class windows::java(
   $version  = '7',
