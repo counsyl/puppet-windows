@@ -18,6 +18,7 @@ define windows::path(
   $target    = 'Machine',
 ) {
   # Ensure only valid parameters.
+  validate_absolute_path($directory)
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure parameter')
   validate_re($target, '^(Machine|User)$', 'Invalid target parameter')
 

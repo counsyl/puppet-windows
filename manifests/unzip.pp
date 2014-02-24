@@ -28,7 +28,10 @@
 #
 # [*options*]
 #  Advanced parameter, sets the extraction options for the `Folder.CopyHere`
-#  method: http://msdn.microsoft.com/en-us/library/windows/desktop/bb787866.
+#  method:
+#
+#  http://msdn.microsoft.com/en-us/library/windows/desktop/bb787866.
+#
 #  Defaults to 20, which is sum of:
 #   * 4:  Do not display a progress dialog box.
 #   * 16: Respond with "Yes to All" for any dialog box that is displayed.
@@ -47,6 +50,8 @@ define windows::unzip(
   $options          = '20',
   $command_template = 'windows/unzip.ps1.erb',
 ) {
+  validate_absolute_path($destination)
+
   if (! $creates and ! $refreshonly and ! $unless){
     fail("Must set one of creates, refreshonly, or unless parameters.\n")
   }
