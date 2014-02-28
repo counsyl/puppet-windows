@@ -7,6 +7,8 @@ class windows::iis_express(
   $basename = "iisexpress_8_0_RTM_${::architecture}_en-US.msi",
   $package  = 'IIS 8.0 Express',
   $source   = undef,
+  $path     = 'C:\Program Files\IIS Express\iisexpress.exe',
+  $appcmd   = 'C:\Program Files\IIS Express\appcmd.exe',
 ) {
   # Constructing the $source_uri.
   if $source {
