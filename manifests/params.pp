@@ -11,10 +11,10 @@ class windows::params(
   }
 
   # Program Data
-  $programdata = "${system_root}\\ProgramData"
+  $programdata = "${system_root}ProgramData"
 
   # Windows directory.
-  $windir = "${system_root}\\Windows"
+  $windir = "${system_root}Windows"
 
   # Windows system directory.
   $system32 = "${windir}\\system32"
