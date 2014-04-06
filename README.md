@@ -1,7 +1,8 @@
 windows
 =======
 
-This module provides Puppet configurations for common Windows tasks.
+This module provides Puppet configurations for common Windows administration.
+
 
 License
 -------
@@ -16,4 +17,4 @@ Justin Bronn <justin@counsyl.com>
 Support
 -------
 
-Please log tickets and issues at https://github.counsyl.com/dev/puppet-windows
+Please log tickets and issues at https://github.com/counsyl/puppet-windows
