@@ -50,7 +50,7 @@ class windows::java(
   $jre_basename = "jre-${version}u${update}-windows-${java_arch}.exe"
   $jre_installer = "${windows::installers}\\${jre_basename}"
   $jre_url = "${base_url}${version}u${update}-b${build}/${jre_basename}"
-  $cookie = "oraclelicensejre-${version}-oth-JPR=accept-securebackup-cookie;gpw_e24=${referrer}"
+  $cookie = "oraclelicense=accept-securebackup-cookie;gpw_e24=${referrer}"
 
   # Download the JRE using a PowerShell script that sets the license accepted cookie.
   exec { 'download-java':
