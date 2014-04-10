@@ -1,6 +1,9 @@
 # == Class: windows::java
 #
-# Downloads and installs the Java Runtime Environment.
+# Downloads and installs the Java Runtime Environment.  Use of this
+# class implies you accept Oracle's Java SE license:
+#
+#  http://www.oracle.com/technetwork/java/javase/terms/license/index.html
 #
 class windows::java(
   $version  = '7',
