@@ -1,0 +1,21 @@
+{
+  "name": "counsyl-windows",
+  "version": "0.9.2",
+  "author": "Counsyl, Inc.",
+  "summary": "Collection of useful Puppet manifests for Windows-based platforms.",
+  "license": "Apache License, Version 2.0",
+  "source": "git://github.com/counsyl/puppet-windows.git",
+  "project_page": "https://github.com/counsyl/puppet-windows",
+  "issues_url": "https://github.com/counsyl/puppet-windows/issues",
+  "description": "Collection of useful Puppet manifests for Windows-based platforms.",
+  "dependencies": [
+    {"name":"counsyl/sys","version_requirement":">= 0.9.14"},
+    {"name":"joshcooper/powershell","version_requirement":">= 0.0.6"},
+    {"name":"puppetlabs/registry","version_requirement":">= 1.0.0"}
+  ],
+  "operatingsystem_support": [
+      {
+          "operatingsystem": "windows"
+      }
+  ]
+}
