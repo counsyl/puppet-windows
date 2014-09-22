@@ -7,8 +7,8 @@
 #
 class windows::java(
   $version  = '7',
-  $update   = '55',
-  $build    = '13',
+  $update   = '67',
+  $build    = '01',
   $base_url = 'http://download.oracle.com/otn-pub/java/jdk/',
   $arch     = undef,
   $referrer = 'http://edelivery.oracle.com',
@@ -57,7 +57,7 @@ class windows::java(
     command  => template('windows/download_java.ps1.erb'),
     creates  => $jre_installer,
     provider => 'powershell',
-    require  => Class['windows'],
+    require  => File[$windows::installers],
   }
 
   # Determining the Java package name.

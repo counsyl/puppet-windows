@@ -24,7 +24,7 @@ Downloads and installs [IIS Express 8](http://www.microsoft.com/en-ca/download/d
 ### `windows::java`
 
 Automatically downloads and installs Java from Oracle.  Currently, it uses
-Java 7 Update 51.  Use of this class implies your acceptance of the
+Java 7 Update 67.  Use of this class implies your acceptance of the
 [Oracle Binary Code License Agreement for SE Platform Products](http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
 
 ### `windows::nssm`
