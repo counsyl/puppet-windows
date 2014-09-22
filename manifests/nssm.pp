@@ -5,7 +5,7 @@
 # === Parameters
 #
 # [*version*]
-#  The version of NSSM to install, defaults to '2.21.1'.
+#  The version of NSSM to install, defaults to '2.24'.
 #
 # [*base_url*]
 #  The base URL to download the NSSM ZIP file from, defaults to:
@@ -16,7 +16,7 @@
 #  to 'C:\Program Files'.
 #
 class windows::nssm(
-  $version     = '2.21.1',
+  $version     = '2.24',
   $base_url    = 'http://nssm.cc/download/',
   $destination = 'C:\Program Files'
 ) {
@@ -39,6 +39,7 @@ class windows::nssm(
   sys::fetch { 'download-nssm':
     source      => $nssm_url,
     destination => $nssm_zip,
+    require     => File[$windows::installers],
   }
 
   # Unzip the NSSM archive into the destination, creating the root folder.
