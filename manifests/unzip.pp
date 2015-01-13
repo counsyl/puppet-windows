@@ -40,6 +40,10 @@
 #  Advanced paramter for generating PowerShell that extracts the ZIP file,
 #  defaults to 'windows/unzip.ps1.erb'.
 #
+# [*timeout*]
+# Execution timeout in seconds for the unzip command, 0 disables timeout
+# defaults to 300 seconds
+#
 define windows::unzip(
   $destination,
   $creates          = undef,
@@ -49,6 +53,7 @@ define windows::unzip(
   $provider         = 'powershell',
   $options          = '20',
   $command_template = 'windows/unzip.ps1.erb',
+  $timeout          = 300,
 ) {
   validate_absolute_path($destination)
 
@@ -62,5 +67,6 @@ define windows::unzip(
     refreshonly => $refreshonly,
     unless      => $unless,
     provider    => $provider,
+    timeout     => $timeout,
   }
 }
