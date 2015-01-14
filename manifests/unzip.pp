@@ -41,8 +41,8 @@
 #  defaults to 'windows/unzip.ps1.erb'.
 #
 # [*timeout*]
-# Execution timeout in seconds for the unzip command, 0 disables timeout
-# defaults to 300 seconds
+# Execution timeout in seconds for the unzip command; 0 disables timeout,
+# defaults to 300 seconds (5 minutes).
 #
 define windows::unzip(
   $destination,
