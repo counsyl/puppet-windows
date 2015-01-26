@@ -7,8 +7,8 @@
 #
 class windows::java(
   $version  = '7',
-  $update   = '67',
-  $build    = '01',
+  $update   = '75',
+  $build    = '13',
   $base_url = 'http://download.oracle.com/otn-pub/java/jdk/',
   $arch     = undef,
   $referrer = 'http://edelivery.oracle.com',
