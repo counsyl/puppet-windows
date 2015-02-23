@@ -6,8 +6,8 @@
 #  http://www.oracle.com/technetwork/java/javase/terms/license/index.html
 #
 class windows::java(
-  $version  = '7',
-  $update   = '75',
+  $version  = '8',
+  $update   = '31',
   $build    = '13',
   $base_url = 'http://download.oracle.com/otn-pub/java/jdk/',
   $arch     = undef,
@@ -40,6 +40,9 @@ class windows::java(
     }
     '7': {
       $path = 'C:\Program Files\Java\jre7\bin'
+    }
+    '8': {
+      $path = "C:\\Program Files\\Java\\jre1.8.0_${update}\\bin"
     }
     default: {
       fail("Do not know how to install Java version: ${version}.\n")
