@@ -3,7 +3,7 @@
   "version": "0.9.4",
   "author": "Counsyl, Inc.",
   "summary": "Collection of useful Puppet manifests for Windows-based platforms.",
-  "license": "Apache License, Version 2.0",
+  "license": "Apache-2.0",
   "source": "git://github.com/counsyl/puppet-windows.git",
   "project_page": "https://github.com/counsyl/puppet-windows",
   "issues_url": "https://github.com/counsyl/puppet-windows/issues",
