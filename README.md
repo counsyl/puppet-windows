@@ -31,6 +31,16 @@ Java 7 Update 67.  Use of this class implies your acceptance of the
 
 Downloads and installs the [Non-Sucking Service Manager](http://nssm.cc/).
 
+### `windows::power_scheme`
+
+Sets the power scheme for the system, for example:
+
+```puppet
+class { 'windows::power_scheme':
+  ensure => 'High performance',
+}
+```
+
 ### `windows::refresh_environment`
 
 Contains an `exec` resource that will refresh the current environment --
