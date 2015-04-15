@@ -5,9 +5,10 @@
 #
 define windows::shortcut(
   $target,
-  $path              = $name,
+  $path              = $title,
   $arguments         = undef,
   $description       = undef,
+  $icon_location     = undef,
   $working_directory = undef,
 ) {
   validate_re($path, '\.[lL][nN][kK]$')

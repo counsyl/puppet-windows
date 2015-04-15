@@ -7,6 +7,9 @@ $shortcut.Arguments = "<%= @arguments %>";
 <% if @description -%>
 $shortcut.Description = "<%= @description %>";
 <% end -%>
+<% if @icon_location -%>
+$shortcut.IconLocation = "<%= @icon_location %>";
+<% end -%>
 <% if @working_directory -%>
 $shortcut.WorkingDirectory = "<%= @working_directory %>";
 <% end -%>
