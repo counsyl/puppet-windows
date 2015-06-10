@@ -35,34 +35,33 @@ define windows::firewall_rule(
   $enable      = 'yes',
   $profile     = undef,
 ) {
-
-  # Make sure there's at least a program or a localport specified.
-  if (! $program and ! $localport and ! $protocol) {
-    fail("Must provide either a program, localport, or protocol for the Windows firewall rule.\n")
-  }
-
-  if ( $localport and ! $protocol) {
-    fail("Must provide a protocol when specifying a localport Windows firewall rule.\n")
-  }
-
   # Location of netsh executable and the condition command (which only checks if
   # the rule exists at this point).  The condition command will be used for
   # with `onlyif` or `unless`, depending on the ensure value.
   $netsh = 'C:\WINDOWS\system32\netsh.exe'
-  $condition = "${netsh} advfirewall firewall show rule name=\"${name}\""
+  $condition = "${netsh} advfirewall firewall show rule name=\"${title}\""
 
   case $ensure {
     'present': {
+      # Make sure there's at least a program or a localport specified.
+      if (! $program and ! $localport and ! $protocol) {
+        fail("Must provide either a program, localport, or protocol for the Windows firewall rule.\n")
+      }
+
+      if ( $localport and ! $protocol) {
+        fail("Must provide a protocol when specifying a localport Windows firewall rule.\n")
+      }
+
       # The command is constructed from template, which sets the proper
       # parameters for the `netsh advfirewall firewall add rule` command.
-      exec { "windows-firewall-${name}":
+      exec { "windows-firewall-${title}":
         command => template('windows/firewall_rule.erb'),
         unless  => $condition,
       }
     }
     'absent': {
-      exec { "windows-firewall-${name}":
-        command => "${netsh} advfirewall firewall delete rule name=\"${name}\"",
+      exec { "windows-firewall-${title}":
+        command => "${netsh} advfirewall firewall delete rule name=\"${title}\"",
         onlyif  => $condition,
       }
     }
