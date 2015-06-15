@@ -33,21 +33,13 @@ class windows::java(
     }
   }
 
-  # Determining Java's path depending on the version.
-  case $version {
-    '6': {
-      $path = "C:\\Program Files\\Java\\jre1.6.0_${update}\\bin"
-    }
-    '7': {
-      $path = 'C:\Program Files\Java\jre7\bin'
-    }
-    '8': {
-      $path = "C:\\Program Files\\Java\\jre1.8.0_${update}\\bin"
-    }
-    default: {
-      fail("Do not know how to install Java version: ${version}.\n")
-    }
+  # Determining Java's home depending on the version.
+  if $version == '7' {
+    $home = 'C:\Program Files\Java\jre7'
+  } else {
+    $home = "C:\\Program Files\\Java\\jre1.${version}.0_${update}"
   }
+  $path = "${home}\\bin"
 
   # Setting up variables for downloading the JRE.
   $jre_basename = "jre-${version}u${update}-windows-${java_arch}.exe"
