@@ -7,7 +7,7 @@ class windows::params(
   $system_root = "C:\\",
 ) {
   if $::osfamily != 'windows' {
-    fail("The windows module is only supported on Microsoft Windows.\n")
+    fail('The windows module is only supported on Microsoft Windows.')
   }
 
   # Program Data

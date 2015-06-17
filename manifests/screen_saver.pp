@@ -56,11 +56,11 @@ define windows::screen_saver(
     case $2 {
       'm': {
         $timeout_minutes = $1
-        $timeout_seconds = inline_template("<%= Integer(@timeout_minutes) * 60 %>")
+        $timeout_seconds = inline_template('<%= Integer(@timeout_minutes) * 60 %>')
       }
       'h': {
         $timeout_hours = $1
-        $timeout_seconds = inline_template("<%= Integer(@timeout_hours) * 3600) %>")
+        $timeout_seconds = inline_template('<%= Integer(@timeout_hours) * 3600) %>')
       }
     }
   } else {

@@ -141,9 +141,9 @@ class windows::update(
     }
 
     registry_value { "${au_key}\\UseWUSServer":
-      ensure  => present,
-      type    => 'string',
-      data    => 1,
+      ensure => present,
+      type   => 'string',
+      data   => 1,
     }
   } else {
     registry_value { ["${key}\\WUServer",

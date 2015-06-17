@@ -74,10 +74,9 @@ class windows::autologon(
         data   => '0',
       }
 
-      registry_value {
-        ["${key}\\DefaultUsername", "${key}\\DefaultPassword",
-         "${key}\\DefaultDomainName", "${key}\\ForceAutoLogon"]:
-           ensure => absent,
+      registry_value { ["${key}\\DefaultUsername", "${key}\\DefaultPassword",
+                        "${key}\\DefaultDomainName", "${key}\\ForceAutoLogon"]:
+        ensure => absent,
       }
     }
     default: {
