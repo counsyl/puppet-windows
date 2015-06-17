@@ -10,7 +10,7 @@
 #
 # [*guids*]
 #  A mapping of power scheme names to their GUID.  The default schemes supported are:
-#  'Balanced', 'High performane', and 'Power saver'.
+#  'Balanced', 'High performance', and 'Power saver'.
 #
 class windows::power_scheme(
   $ensure = 'Balanced',
