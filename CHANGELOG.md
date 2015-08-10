@@ -1,3 +1,8 @@
+## 1.0.1 (unreleased)
+
+IMPROVEMENTS:
+* Updated default Java version to 8u51.
+
 ## 1.0.0 (06/17/2015)
 
 BUG FIXES:
