@@ -1,4 +1,4 @@
-## 1.0.1 (unreleased)
+## 1.0.1 (08/17/2015)
 
 IMPROVEMENTS:
 * Updated default Java version to 8u51.
