@@ -1,3 +1,8 @@
+## 1.0.2 (08/28/2015)
+
+IMPROVEMENTS:
+* Updated default Java version to 8u60.
+
 ## 1.0.1 (08/17/2015)
 
 IMPROVEMENTS:
