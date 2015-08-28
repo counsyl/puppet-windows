@@ -18,7 +18,7 @@ class windows(
   }
 
   # Location of commonly-used programs from system32.
-  $certutil = "${system32}\\certutil.exe"
-  $cmd = "${system32}\\cmd.exe"
-  $regsvr32 = "${system32}\\regsvr32.exe"
+  $certutil = "${windows::params::system32}\\certutil.exe"
+  $cmd = "${windows::params::system32}\\cmd.exe"
+  $regsvr32 = "${windows::params::system32}\\regsvr32.exe"
 }

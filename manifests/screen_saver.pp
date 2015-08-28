@@ -62,6 +62,9 @@ define windows::screen_saver(
         $timeout_hours = $1
         $timeout_seconds = inline_template('<%= Integer(@timeout_hours) * 3600) %>')
       }
+      default: {
+        fail('Unknown timeout format.')
+      }
     }
   } else {
     $timeout_seconds = $timeout
