@@ -1,3 +1,8 @@
+## 1.0.3 (06/07/2016)
+
+IMPROVEMENTS:
+* Allow arbitrary shortcut link targets (to support URLs and shell objects)
+
 ## 1.0.2 (08/28/2015)
 
 IMPROVEMENTS:
