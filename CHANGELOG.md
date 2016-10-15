@@ -1,3 +1,8 @@
+## 1.0.4 (10/15/2016)
+
+IMPROVEMENTS:
+* Allow newer versions of puppetlabs/powershell.
+
 ## 1.0.3 (06/07/2016)
 
 IMPROVEMENTS:
