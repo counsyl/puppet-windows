@@ -88,10 +88,19 @@ class windows::update(
   validate_bool($reboot_required)
 
   # Windows update service.
-  service { $service:
-    ensure => 'running',
-    enable => true,
-  }
+  case $::kernelmajversion {
+    '6.3', '10.0' : {
+      service { $service:
+        enable => true,
+      }
+    }
+    default: {
+      service { $service:
+        ensure => 'running',
+        enable => true,
+      }
+    }
+   }
 
   # Have any `registry_value` resources here refresh Windows Update service.
   Registry_value {
