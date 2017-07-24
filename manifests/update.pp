@@ -84,7 +84,7 @@ class windows::update(
   validate_bool($all_users)
   validate_re($type, '^[2-5]$')
   validate_re($day, '^[0-7]$')
-  validate_re($time, '^(\d|1\d|2[0-4])$')
+  validate_re($time, '^(\d|1\d|2[0-3])$')
   validate_bool($reboot_required)
 
   # Windows update service.
