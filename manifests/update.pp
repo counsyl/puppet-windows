@@ -87,20 +87,20 @@ class windows::update(
   validate_re($time, '^[0-23]$')
   validate_bool($reboot_required)
 
-  # Windows update service.
-  case $::kernelmajversion {
-    '6.3', '10.0' : {
-      service { $service:
-        enable => true,
-      }
+  # Windows Update service.
+  #  In newer Windows versions the service is started on-demand (Trigger Start) and
+  #   stopped after 10 mins. To workaround it this module won't set ensure => running
+  #  Ref.: https://tickets.puppetlabs.com/browse/MODULES-2420
+  if ($::kernelmajversion >= 6.3) {
+    service { $service:
+      enable => true,
     }
-    default: {
-      service { $service:
-        ensure => 'running',
-        enable => true,
-      }
+  } else {
+    service { $service:
+      ensure => 'running',
+      enable => true,
     }
-   }
+  }
 
   # Have any `registry_value` resources here refresh Windows Update service.
   Registry_value {
