@@ -1,3 +1,9 @@
+## 1.0.5 (8/5/2017)
+
+BUG FIXES:
+ * Fix regex validation of update time (@makomatic)
+ * Fix for newer versions of windows update service (@rogerlz)
+
 ## 1.0.4 (10/15/2016)
 
 IMPROVEMENTS:
