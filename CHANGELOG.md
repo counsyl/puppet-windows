@@ -1,3 +1,8 @@
+## 1.0.6 (8/13/2017)
+
+BUG FIXES:
+ * Fix kernal version comparison (@rogerlz)
+
 ## 1.0.5 (8/5/2017)
 
 BUG FIXES:

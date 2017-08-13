@@ -1,6 +1,6 @@
 {
   "name": "counsyl-windows",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Counsyl, Inc.",
   "summary": "Collection of useful Puppet manifests for Windows-based platforms.",
   "license": "Apache-2.0",
