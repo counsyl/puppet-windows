@@ -91,7 +91,7 @@ class windows::update(
   #  In newer Windows versions the service is started on-demand (Trigger Start) and
   #   stopped after 10 mins. To workaround it this module won't set ensure => running
   #  Ref.: https://tickets.puppetlabs.com/browse/MODULES-2420
-  if ($::kernelmajversion >= 6.3) {
+  if (versioncmp($::kernelmajversion, '6.3') >= 0) {
     service { $service:
       enable => true,
     }
