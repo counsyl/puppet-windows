@@ -1,0 +1,21 @@
+$zipFile="<%= @zipfile %>"
+$dst="<%= @destination %>"
+
+if ( ! (Test-Path $zipfile) ) {
+    write-error "ZIP file does not exists: ``$zipFile'"
+    exit 1
+}
+
+if ( ! (Test-Path $dst) ) {
+    write-error "Missing destination folder: ``$dst'"
+    exit 1
+}
+
+try {
+    Add-Type -A System.IO.Compression.FileSystem
+    [IO.Compression.ZipFile]::ExtractToDirectory($zipFile, $dst)
+}
+catch {
+    write-error $_
+    exit 1
+}
