@@ -61,13 +61,13 @@ define windows::unzip(
     fail("Must set one of creates, refreshonly, or unless parameters.\n")
   }
 
-  unless( $provider == 'dotnet'  or $provider == 'com'){
+  unless ($provider == 'dotnet' or $provider == 'com'){
     fail("Wrong provider: `${provider}', choices are: dotnet or com!\n")
   }
 
-  if ($provider ==  'dotnet'){
+  if ($provider == 'dotnet'){
     $command_template = 'windows/unzip_dotnet.ps1.erb'
-  }else{
+  } else{
     $command_template = 'windows/unzip.ps1.erb'
   }
 
