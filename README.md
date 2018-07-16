@@ -132,6 +132,16 @@ windows::unzip { 'C:\compressed.zip':
 }
 ```
 
+If you don't have .NET 4.5 installed you can fallback to COM based method but it can fail if puppet runs as service. 
+
+```puppet
+windows::unzip { 'C:\compressed.zip':
+  destination => 'C:\dest',
+  creates     => 'C:\dest\uncompressed.txt',
+  fallback    => true,
+}
+```
+
 This assumes that the file `uncompressed.txt` exists in `C:\compressed.zip`
 
 License
