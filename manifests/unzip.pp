@@ -50,10 +50,11 @@ define windows::unzip(
   $refreshonly      = false,
   $unless           = undef,
   $zipfile          = $name,
-  $provider         = 'dotnet',
+  $provider         = 'powershell',
   $options          = '20',
   $timeout          = 300,
   $logoutput        = on_failure,
+  $fallback         = false,
 ) {
   validate_absolute_path($destination)
 
@@ -61,23 +62,18 @@ define windows::unzip(
     fail("Must set one of creates, refreshonly, or unless parameters.\n")
   }
 
-  unless ($provider == 'dotnet' or $provider == 'com'){
-    fail("Wrong provider: `${provider}', choices are: dotnet or com!\n")
-  }
-
-  if ($provider == 'dotnet'){
-    $command_template = 'windows/unzip_dotnet.ps1.erb'
-  } else{
+  if ($fallback){
     $command_template = 'windows/unzip.ps1.erb'
+  } else{
+    $command_template = 'windows/unzip_dotnet.ps1.erb'
   }
-
 
   exec { "unzip-${name}":
     command     => template($command_template),
     creates     => $creates,
     refreshonly => $refreshonly,
     unless      => $unless,
-    provider    => powershell,
+    provider    => $provider,
     timeout     => $timeout,
     logoutput   => $logoutput,
   }

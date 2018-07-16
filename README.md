@@ -138,7 +138,7 @@ If you don't have .NET 4.5 installed you can fallback to COM based method but it
 windows::unzip { 'C:\compressed.zip':
   destination => 'C:\dest',
   creates     => 'C:\dest\uncompressed.txt',
-  provider    => 'com'
+  fallback    => true,
 }
 ```
 
