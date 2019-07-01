@@ -3,6 +3,9 @@ windows
 
 This module provides Puppet configurations for common Windows administration.
 
+### Dependencies
+This project requires the [puppetlabs/powershell](https://github.com/puppetlabs/puppetlabs-powershell) module to be available in order for the modules to work.
+
 Windows Classes
 ---------------
 
